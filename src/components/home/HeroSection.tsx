@@ -1,83 +1,65 @@
 import { Link } from "react-router-dom";
-import { motion, type Easing } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Shield, QrCode, Phone, ArrowRight, Sparkles } from "lucide-react";
-
-const easeOut: Easing = [0.33, 1, 0.68, 1];
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: i * 0.1,
-      duration: 0.5,
-      ease: easeOut,
-    },
-  }),
-};
+import { 
+  ShieldCheck, 
+  ScanLine, 
+  PhoneCall, 
+  ArrowRight, 
+  CheckCircle2,
+  Users,
+  Star
+} from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-background py-16 md:py-24">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 -z-10">
-        <motion.div
-          className="absolute right-0 top-0 h-[500px] w-[500px] rounded-full bg-primary/5 blur-3xl"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.5, 0.8, 0.5],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-accent/5 blur-3xl"
-          animate={{
-            scale: [1, 1.2, 1],
-            opacity: [0.5, 0.7, 0.5],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        />
+    <section className="relative overflow-hidden bg-background section-padding">
+      {/* Subtle grid background */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-40" />
+      
+      {/* Gradient orbs - more subtle */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-accent/5 blur-3xl" />
       </div>
 
-      <div className="container">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+      <div className="container relative">
+        <div className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20">
           {/* Content */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            {/* Badge */}
+          <motion.div
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {/* Trust badge */}
             <motion.div
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-muted/50 px-4 py-1.5 text-sm"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
+              className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background px-4 py-2"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.4 }}
             >
-              <motion.span
-                className="inline-block h-2 w-2 rounded-full bg-accent"
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="text-muted-foreground">
-                Trusted by 10,000+ vehicle owners
+              <div className="flex -space-x-1.5">
+                {["RS", "PP", "AK"].map((initials, i) => (
+                  <div
+                    key={i}
+                    className="flex h-6 w-6 items-center justify-center rounded-full border-2 border-background bg-muted text-[10px] font-medium text-muted-foreground"
+                  >
+                    {initials}
+                  </div>
+                ))}
+              </div>
+              <span className="text-sm text-muted-foreground">
+                Trusted by <span className="font-semibold text-foreground">10,000+</span> vehicle owners
               </span>
             </motion.div>
 
             {/* Headline */}
             <motion.h1
-              className="mb-6 text-display-md md:text-display-lg"
-              custom={1}
-              initial="hidden"
-              animate="visible"
-              variants={fadeInUp}
+              className="mb-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               Protect Your{" "}
               <span className="text-gradient-primary">Vehicle & Home</span>{" "}
@@ -86,195 +68,183 @@ const HeroSection = () => {
 
             {/* Subheadline */}
             <motion.p
-              className="mb-8 max-w-xl text-lg text-muted-foreground"
-              custom={2}
-              initial="hidden"
-              animate="visible"
-              variants={fadeInUp}
+              className="mb-10 max-w-xl text-lg leading-relaxed text-muted-foreground"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              Our smart QR safety tags help people contact you instantly in emergencies —
-              without exposing your personal phone number or address. Stay safe, stay private.
+              Our smart QR safety tags help people contact you instantly in emergencies—without 
+              exposing your personal phone number. Stay safe, stay private.
             </motion.p>
 
             {/* CTAs */}
             <motion.div
               className="flex flex-col gap-4 sm:flex-row"
-              custom={3}
-              initial="hidden"
-              animate="visible"
-              variants={fadeInUp}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <Link to="/order">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <Button
+                  size="lg"
+                  className="btn-primary h-12 gap-2 px-8 text-base"
                 >
-                  <Button
-                    size="lg"
-                    className="bg-gradient-primary shadow-primary hover:opacity-90 gap-2 text-base h-12 px-8"
-                  >
-                    <Sparkles className="h-4 w-4" />
-                    Order Your QR Tag
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </motion.div>
+                  Get Your QR Tag
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
               </Link>
               <a href="#how-it-works">
-                <motion.div
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="h-12 px-8 text-base"
                 >
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="gap-2 text-base h-12 px-8"
-                  >
-                    See How It Works
-                  </Button>
-                </motion.div>
+                  See How It Works
+                </Button>
               </a>
             </motion.div>
 
-            {/* Trust Indicators */}
+            {/* Trust indicators */}
             <motion.div
-              className="mt-10 flex flex-wrap items-center gap-6 text-sm text-muted-foreground"
-              custom={4}
-              initial="hidden"
-              animate="visible"
-              variants={fadeInUp}
+              className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.6 }}
             >
               {[
-                { icon: Shield, text: "Privacy Protected", color: "text-accent" },
-                { icon: QrCode, text: "Instant Scan", color: "text-primary" },
-                { icon: Phone, text: "Quick Contact", color: "text-secondary" },
-              ].map((item, index) => (
-                <motion.div
-                  key={item.text}
-                  className="flex items-center gap-2"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                >
-                  <item.icon className={`h-5 w-5 ${item.color}`} />
+                { icon: ShieldCheck, text: "Privacy Protected" },
+                { icon: ScanLine, text: "No App Needed" },
+                { icon: PhoneCall, text: "Instant Contact" },
+              ].map((item) => (
+                <div key={item.text} className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <item.icon className="h-4 w-4 text-accent" />
                   <span>{item.text}</span>
-                </motion.div>
+                </div>
               ))}
             </motion.div>
-          </div>
+          </motion.div>
 
-          {/* Hero Illustration */}
+          {/* Hero Visual - Clean phone mockup */}
           <motion.div
             className="relative flex justify-center lg:justify-end"
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <div className="relative">
-              {/* Main Card */}
-              <motion.div
-                className="relative z-10 rounded-2xl border border-border bg-card p-6 shadow-lg"
-                whileHover={{ y: -5 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                {/* Phone Mockup */}
-                <div className="mx-auto w-64 rounded-[2rem] border-4 border-foreground/10 bg-foreground/5 p-2">
-                  <div className="rounded-[1.5rem] bg-background p-4">
-                    {/* Status Bar */}
-                    <div className="mb-4 flex items-center justify-center">
-                      <div className="h-6 w-16 rounded-full bg-foreground/10" />
+              {/* Phone mockup */}
+              <div className="relative z-10 w-72 rounded-[2.5rem] border border-border bg-card p-2 shadow-xl sm:w-80">
+                <div className="rounded-[2rem] bg-muted/30 p-1">
+                  <div className="rounded-[1.75rem] bg-background">
+                    {/* Status bar */}
+                    <div className="flex items-center justify-center py-3">
+                      <div className="h-6 w-20 rounded-full bg-foreground/10" />
                     </div>
                     
-                    {/* QR Preview */}
-                    <div className="flex flex-col items-center gap-4">
-                      <motion.div
-                        className="flex h-16 w-16 items-center justify-center rounded-xl bg-primary/10"
-                        animate={{ rotate: [0, 5, -5, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                      >
-                        <Shield className="h-8 w-8 text-primary" />
-                      </motion.div>
-                      <div className="text-center">
-                        <p className="text-xs text-muted-foreground">Emergency Contact</p>
-                        <p className="font-semibold text-foreground">KA-01-AB-1234</p>
-                      </div>
-                      
-                      {/* QR Code Placeholder */}
-                      <motion.div
-                        className="grid h-32 w-32 grid-cols-5 gap-1 rounded-lg bg-foreground/5 p-3"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                      >
-                        {Array.from({ length: 25 }).map((_, i) => (
-                          <motion.div
-                            key={i}
-                            className="rounded-sm bg-foreground"
-                            initial={{ opacity: 0, scale: 0 }}
-                            animate={{ 
-                              opacity: Math.random() > 0.4 ? 1 : 0,
-                              scale: 1 
-                            }}
-                            transition={{ delay: 0.6 + i * 0.02 }}
-                          />
-                        ))}
-                      </motion.div>
-                      
-                      {/* Contact Button */}
-                      <motion.div
-                        className="flex w-full flex-col gap-2"
-                        whileHover={{ scale: 1.02 }}
-                      >
-                        <div className="flex h-10 items-center justify-center gap-2 rounded-lg bg-accent text-accent-foreground text-sm font-medium">
-                          <Phone className="h-4 w-4" />
-                          Call Emergency Contact
+                    {/* Content */}
+                    <div className="px-5 pb-6">
+                      {/* Emergency header */}
+                      <div className="mb-5 flex items-center gap-3 rounded-xl bg-primary/10 p-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/20">
+                          <ShieldCheck className="h-5 w-5 text-primary" />
                         </div>
-                      </motion.div>
+                        <div>
+                          <p className="text-xs font-medium text-primary">Emergency Contact</p>
+                          <p className="text-sm font-semibold text-foreground">KA-01-AB-1234</p>
+                        </div>
+                      </div>
+
+                      {/* QR visualization */}
+                      <div className="mb-5 flex justify-center">
+                        <div className="grid h-28 w-28 grid-cols-7 gap-1 rounded-xl bg-foreground/5 p-3">
+                          {Array.from({ length: 49 }).map((_, i) => (
+                            <motion.div
+                              key={i}
+                              className="rounded-[2px] bg-foreground/80"
+                              initial={{ opacity: 0 }}
+                              animate={{ opacity: Math.random() > 0.35 ? 1 : 0 }}
+                              transition={{ delay: 0.8 + i * 0.01, duration: 0.2 }}
+                            />
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Contact buttons */}
+                      <div className="space-y-2.5">
+                        <div className="flex items-center justify-between rounded-xl bg-accent px-4 py-3 text-accent-foreground">
+                          <div className="flex items-center gap-3">
+                            <PhoneCall className="h-4 w-4" />
+                            <span className="text-sm font-medium">Emergency Contact 1</span>
+                          </div>
+                          <ArrowRight className="h-4 w-4" />
+                        </div>
+                        <div className="flex items-center justify-between rounded-xl border border-border bg-background px-4 py-3">
+                          <div className="flex items-center gap-3">
+                            <PhoneCall className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm font-medium">Emergency Contact 2</span>
+                          </div>
+                          <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
 
-              {/* Floating Elements */}
+              {/* Floating card - left */}
               <motion.div
-                className="absolute -left-8 top-1/4 z-20 rounded-xl border border-border bg-card p-3 shadow-md"
-                animate={{
-                  y: [0, -10, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
+                className="absolute -left-8 top-16 z-20 rounded-xl border border-border bg-card p-3 shadow-lg sm:-left-12"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.7, duration: 0.5 }}
               >
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent/10">
-                    <Shield className="h-4 w-4 text-accent" />
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
+                    <ShieldCheck className="h-4 w-4 text-accent" />
                   </div>
                   <div>
-                    <p className="text-xs font-medium">Privacy First</p>
-                    <p className="text-[10px] text-muted-foreground">Numbers hidden</p>
+                    <p className="text-xs font-semibold text-foreground">Privacy First</p>
+                    <p className="text-[11px] text-muted-foreground">Numbers hidden</p>
                   </div>
                 </div>
               </motion.div>
 
+              {/* Floating card - right */}
               <motion.div
-                className="absolute -right-4 bottom-1/4 z-20 rounded-xl border border-border bg-card p-3 shadow-md"
-                animate={{
-                  y: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 1.5,
-                }}
+                className="absolute -right-4 bottom-24 z-20 rounded-xl border border-border bg-card p-3 shadow-lg sm:-right-10"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8, duration: 0.5 }}
               >
-                <div className="flex items-center gap-2">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
-                    <QrCode className="h-4 w-4 text-primary" />
+                <div className="flex items-center gap-2.5">
+                  <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10">
+                    <ScanLine className="h-4 w-4 text-primary" />
                   </div>
                   <div>
-                    <p className="text-xs font-medium">Instant Scan</p>
-                    <p className="text-[10px] text-muted-foreground">No app needed</p>
+                    <p className="text-xs font-semibold text-foreground">Quick Scan</p>
+                    <p className="text-[11px] text-muted-foreground">No app required</p>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Stats card - bottom */}
+              <motion.div
+                className="absolute -bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-xl border border-border bg-card px-5 py-3 shadow-lg"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.9, duration: 0.5 }}
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-1.5">
+                    <Users className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm font-semibold text-foreground">10K+</span>
+                    <span className="text-xs text-muted-foreground">Users</span>
+                  </div>
+                  <div className="h-4 w-px bg-border" />
+                  <div className="flex items-center gap-1.5">
+                    <Star className="h-4 w-4 fill-primary text-primary" />
+                    <span className="text-sm font-semibold text-foreground">4.9</span>
+                    <span className="text-xs text-muted-foreground">Rating</span>
                   </div>
                 </div>
               </motion.div>
