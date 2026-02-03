@@ -32,7 +32,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
-              <img src={logo} alt="EmergencyCall.me" className="h-10 w-auto brightness-0 invert" />
+              <img src={logo} alt="EmergencyCall.me" className="h-8 w-auto brightness-0 invert sm:h-10" />
             </Link>
             <p className="text-sm leading-relaxed text-secondary-foreground/70">
               Protect your vehicle and home with smart QR safety tags. Quick emergency
