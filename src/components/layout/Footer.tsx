@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
-import logo from "@/assets/logo.png";
+import Logo from "./Logo";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -31,9 +31,7 @@ const Footer = () => {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* Brand */}
           <div className="space-y-4">
-            <Link to="/" className="flex items-center">
-              <img src={logo} alt="EmergencyCall.me" className="h-8 w-auto brightness-0 invert sm:h-10" />
-            </Link>
+            <Logo inverted />
             <p className="text-sm leading-relaxed text-secondary-foreground/70">
               Protect your vehicle and home with smart QR safety tags. Quick emergency
               contact without exposing personal details.
