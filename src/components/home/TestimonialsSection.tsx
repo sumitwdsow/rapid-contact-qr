@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
 
 const testimonials = [
@@ -43,37 +44,56 @@ const testimonials = [
   },
 ];
 
+const stats = [
+  { value: "10,000+", label: "Active Users" },
+  { value: "500+", label: "Lives Protected" },
+  { value: "4.9", label: "User Rating", icon: Star },
+  { value: "50+", label: "Cities Covered" },
+];
+
 const TestimonialsSection = () => {
   return (
-    <section className="py-16 md:py-24">
+    <section className="section-padding">
       <div className="container">
         {/* Section Header */}
-        <div className="mx-auto mb-12 max-w-2xl text-center md:mb-16">
-          <h2 className="mb-4 text-display-sm md:text-display-md">
+        <motion.div
+          className="mx-auto mb-16 max-w-2xl text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
+            Customer Stories
+          </p>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Trusted by Thousands
           </h2>
           <p className="text-lg text-muted-foreground">
-            Real stories from real users who've experienced the safety of
-            EmergencyCall.me
+            Real stories from real users who've experienced the safety of EmergencyCall.me
           </p>
-        </div>
+        </motion.div>
 
         {/* Testimonials Grid */}
         <div className="grid gap-6 md:grid-cols-2">
-          {testimonials.map((testimonial) => (
-            <div
+          {testimonials.map((testimonial, index) => (
+            <motion.div
               key={testimonial.id}
-              className="group relative rounded-2xl border border-border bg-card p-6 transition-all hover:shadow-lg md:p-8"
+              className="card-hover relative rounded-2xl border border-border bg-card p-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              {/* Quote Icon */}
+              {/* Quote icon */}
               <div className="absolute -top-3 right-6">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                  <Quote className="h-5 w-5 text-primary" />
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
+                  <Quote className="h-4 w-4 text-primary" />
                 </div>
               </div>
 
               {/* Rating */}
-              <div className="mb-4 flex gap-1">
+              <div className="mb-4 flex gap-0.5">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
                   <Star
                     key={i}
@@ -83,46 +103,49 @@ const TestimonialsSection = () => {
               </div>
 
               {/* Quote */}
-              <p className="mb-6 text-foreground/90">"{testimonial.quote}"</p>
+              <p className="mb-6 leading-relaxed text-foreground/90">
+                "{testimonial.quote}"
+              </p>
 
               {/* Author */}
-              <div className="flex items-center gap-4">
-                {/* Avatar */}
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-primary text-sm font-semibold text-primary-foreground">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-muted text-sm font-semibold text-foreground">
                   {testimonial.avatar}
                 </div>
-
-                {/* Info */}
                 <div>
-                  <p className="font-semibold">{testimonial.name}</p>
+                  <p className="font-semibold text-foreground">{testimonial.name}</p>
                   <p className="text-sm text-muted-foreground">
                     {testimonial.vehicle} • {testimonial.location}
                   </p>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Stats */}
-        <div className="mt-12 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-8">
-          {[
-            { value: "10,000+", label: "Active Users" },
-            { value: "500+", label: "Lives Protected" },
-            { value: "4.9★", label: "User Rating" },
-            { value: "50+", label: "Cities Covered" },
-          ].map((stat, index) => (
+        <motion.div
+          className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
+          {stats.map((stat, index) => (
             <div
               key={index}
-              className="rounded-xl border border-border bg-muted/50 p-4 text-center md:p-6"
+              className="rounded-xl border border-border bg-muted/50 p-5 text-center"
             >
-              <p className="text-2xl font-bold text-primary md:text-3xl">
-                {stat.value}
-              </p>
+              <div className="mb-1 flex items-center justify-center gap-1">
+                {stat.icon && <stat.icon className="h-5 w-5 fill-primary text-primary" />}
+                <p className="text-2xl font-bold text-foreground md:text-3xl">
+                  {stat.value}
+                </p>
+              </div>
               <p className="text-sm text-muted-foreground">{stat.label}</p>
             </div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

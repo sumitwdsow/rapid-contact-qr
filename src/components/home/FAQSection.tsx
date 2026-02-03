@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -50,51 +51,72 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="bg-muted/50 py-16 md:py-24">
+    <section id="faq" className="bg-muted/40 section-padding">
       <div className="container">
         {/* Section Header */}
-        <div className="mx-auto mb-12 max-w-2xl text-center md:mb-16">
-          <h2 className="mb-4 text-display-sm md:text-display-md">
+        <motion.div
+          className="mx-auto mb-12 max-w-2xl text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
+            FAQ
+          </p>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-muted-foreground">
-            Got questions? We've got answers. If you can't find what you're
-            looking for, reach out to our support team.
+            Got questions? We've got answers. Can't find what you're looking for? 
+            Reach out to our support team.
           </p>
-        </div>
+        </motion.div>
 
         {/* FAQ Accordion */}
-        <div className="mx-auto max-w-3xl">
-          <Accordion type="single" collapsible className="space-y-4">
+        <motion.div
+          className="mx-auto max-w-3xl"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1 }}
+        >
+          <Accordion type="single" collapsible className="space-y-3">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="rounded-xl border border-border bg-card px-6 data-[state=open]:shadow-md"
+                className="rounded-xl border border-border bg-card px-5 data-[state=open]:shadow-sm"
               >
-                <AccordionTrigger className="py-4 text-left text-base font-medium hover:no-underline [&[data-state=open]>svg]:rotate-180">
+                <AccordionTrigger className="py-4 text-left text-[15px] font-medium hover:no-underline [&[data-state=open]>svg]:rotate-180">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="pb-4 text-muted-foreground">
+                <AccordionContent className="pb-4 text-[15px] leading-relaxed text-muted-foreground">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </motion.div>
 
         {/* Support CTA */}
-        <div className="mt-12 text-center">
+        <motion.div
+          className="mt-10 text-center"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+        >
           <p className="text-muted-foreground">
             Still have questions?{" "}
             <a
               href="mailto:support@emergencycall.me"
-              className="font-medium text-primary hover:underline"
+              className="font-medium text-primary underline-offset-4 hover:underline"
             >
               Contact our support team
             </a>
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

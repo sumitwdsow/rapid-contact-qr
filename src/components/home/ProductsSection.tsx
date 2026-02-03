@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
-import { motion, type Easing } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Bike, Car, Home, Check, ArrowRight, Star } from "lucide-react";
-
-const easeOut: Easing = [0.33, 1, 0.68, 1];
+import { Bike, Car, Home, Check, ArrowRight, Sparkles } from "lucide-react";
 
 const products = [
   {
@@ -21,7 +18,6 @@ const products = [
       "Instant WhatsApp delivery",
     ],
     popular: false,
-    color: "primary",
   },
   {
     id: "car",
@@ -37,7 +33,6 @@ const products = [
       "Dashboard + Windshield options",
     ],
     popular: true,
-    color: "accent",
   },
   {
     id: "home",
@@ -53,186 +48,126 @@ const products = [
       "Perfect for apartments",
     ],
     popular: false,
-    color: "secondary",
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: easeOut,
-    },
-  },
-};
-
 const ProductsSection = () => {
   return (
-    <section id="products" className="py-16 md:py-24">
+    <section id="products" className="section-padding">
       <div className="container">
         {/* Section Header */}
         <motion.div
-          className="mx-auto mb-12 max-w-2xl text-center md:mb-16"
+          className="mx-auto mb-16 max-w-2xl text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="mb-4 text-display-sm md:text-display-md">
-            Choose Your QR Tag
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
+            Choose Your Protection
+          </p>
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+            QR Tags for Every Need
           </h2>
           <p className="text-lg text-muted-foreground">
-            Select the perfect safety tag for your needs. All tags come with lifetime
-            QR code validity.
+            Select the perfect safety tag for your needs. All tags come with lifetime QR validity.
           </p>
         </motion.div>
 
         {/* Products Grid */}
-        <motion.div
-          className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-        >
-          {products.map((product) => {
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+          {products.map((product, index) => {
             const Icon = product.icon;
 
             return (
-              <motion.div key={product.id} variants={cardVariants}>
-                <Card
-                  className={`relative overflow-hidden transition-all hover:shadow-xl group ${
-                    product.popular ? "border-2 border-accent" : ""
+              <motion.div
+                key={product.id}
+                className="relative"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
+              >
+                <div
+                  className={`card-hover relative h-full rounded-2xl border bg-card p-6 ${
+                    product.popular 
+                      ? "border-primary/50 ring-1 ring-primary/20" 
+                      : "border-border"
                   }`}
                 >
-                  {/* Popular Badge */}
+                  {/* Popular badge */}
                   {product.popular && (
-                    <motion.div
-                      className="absolute right-4 top-4 flex items-center gap-1 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.5, type: "spring", stiffness: 400 }}
-                    >
-                      <Star className="h-3 w-3 fill-current" />
+                    <div className="absolute -top-3 left-6 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
+                      <Sparkles className="h-3 w-3" />
                       Most Popular
-                    </motion.div>
+                    </div>
                   )}
 
-                  <CardHeader className="pb-4">
+                  <div className="mb-5">
                     {/* Icon */}
-                    <motion.div
-                      className={`mb-4 flex h-14 w-14 items-center justify-center rounded-xl ${
-                        product.color === "primary"
-                          ? "bg-primary/10 text-primary"
-                          : product.color === "accent"
-                          ? "bg-accent/10 text-accent"
-                          : "bg-secondary/10 text-secondary"
-                      }`}
-                      whileHover={{ scale: 1.1, rotate: 5 }}
-                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                    >
-                      <Icon className="h-7 w-7" />
-                    </motion.div>
-
-                    <CardTitle className="text-xl">{product.title}</CardTitle>
-                    <CardDescription className="text-base">
-                      {product.description}
-                    </CardDescription>
-                  </CardHeader>
-
-                  <CardContent className="pb-4">
-                    {/* Price */}
-                    <div className="mb-6 flex items-baseline gap-2">
-                      <motion.span
-                        className="text-3xl font-bold"
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                      >
-                        {product.price}
-                      </motion.span>
-                      <span className="text-lg text-muted-foreground line-through">
-                        {product.originalPrice}
-                      </span>
+                    <div className="icon-container icon-container-lg mb-4 bg-muted text-foreground">
+                      <Icon className="h-6 w-6" strokeWidth={1.5} />
                     </div>
 
-                    {/* Features */}
-                    <ul className="space-y-3">
-                      {product.features.map((feature, index) => (
-                        <motion.li
-                          key={index}
-                          className="flex items-center gap-3 text-sm"
-                          initial={{ opacity: 0, x: -10 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: index * 0.1 }}
-                        >
-                          <motion.div
-                            className="flex h-5 w-5 items-center justify-center rounded-full bg-accent/10"
-                            whileHover={{ scale: 1.2 }}
-                          >
-                            <Check className="h-3 w-3 text-accent" />
-                          </motion.div>
-                          <span>{feature}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </CardContent>
+                    <h3 className="mb-2 text-xl font-semibold text-foreground">
+                      {product.title}
+                    </h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {product.description}
+                    </p>
+                  </div>
 
-                  <CardFooter>
-                    <Link to={`/order?type=${product.id}`} className="w-full">
-                      <motion.div
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        <Button
-                          className={`w-full gap-2 ${
-                            product.popular
-                              ? "bg-gradient-primary shadow-primary hover:opacity-90"
-                              : ""
-                          }`}
-                          variant={product.popular ? "default" : "outline"}
-                        >
-                          Order Now
-                          <motion.span
-                            className="inline-block"
-                            whileHover={{ x: 5 }}
-                          >
-                            <ArrowRight className="h-4 w-4" />
-                          </motion.span>
-                        </Button>
-                      </motion.div>
-                    </Link>
-                  </CardFooter>
-                </Card>
+                  {/* Price */}
+                  <div className="mb-6 flex items-baseline gap-2">
+                    <span className="text-3xl font-bold text-foreground">
+                      {product.price}
+                    </span>
+                    <span className="text-sm text-muted-foreground line-through">
+                      {product.originalPrice}
+                    </span>
+                    <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">
+                      50% off
+                    </span>
+                  </div>
+
+                  {/* Features */}
+                  <ul className="mb-6 space-y-3">
+                    {product.features.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm">
+                        <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                        <span className="text-muted-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* CTA */}
+                  <Link to={`/order?type=${product.id}`} className="block">
+                    <Button
+                      className={`w-full gap-2 ${
+                        product.popular ? "btn-primary" : ""
+                      }`}
+                      variant={product.popular ? "default" : "outline"}
+                    >
+                      Order Now
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
               </motion.div>
             );
           })}
-        </motion.div>
+        </div>
 
-        {/* Bottom Note */}
+        {/* Bottom note */}
         <motion.div
           className="mt-10 text-center"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.4 }}
         >
           <p className="text-sm text-muted-foreground">
-            💳 All major payment methods accepted • 🚚 Free shipping on orders above ₹499
+            All major payment methods accepted • Free shipping on orders above ₹499
           </p>
         </motion.div>
       </div>
