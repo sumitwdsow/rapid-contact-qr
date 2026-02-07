@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ShieldCheck, ScanLine, PhoneCall, Sparkles, Star, Users } from "lucide-react";
+import { ArrowRight, ShieldCheck, ScanLine, PhoneCall, Sparkles } from "lucide-react";
 import HeroAnimation from "@/components/home/HeroAnimation";
 import { useRef } from "react";
 
@@ -45,8 +45,6 @@ const HeroSection = () => {
 
   // Parallax transforms
   const imageY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const floatLeftY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const floatRightY = useTransform(scrollYProgress, [0, 1], [0, 60]);
   const bgOrb1X = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const bgOrb2X = useTransform(scrollYProgress, [0, 1], [0, 50]);
 
@@ -227,77 +225,6 @@ const HeroSection = () => {
             <motion.div className="relative" style={{ y: imageY }}>
               <HeroAnimation />
 
-              {/* Floating stat card - left with parallax */}
-              <motion.div
-                className="absolute -left-4 bottom-12 rounded-2xl border border-border bg-card/95 px-5 py-3.5 shadow-lg backdrop-blur-sm sm:-left-10"
-                style={{ y: floatLeftY }}
-                initial={{ opacity: 0, x: -40, scale: 0.8 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ delay: 1, duration: 0.6, type: "spring" }}
-                whileHover={{ scale: 1.08, boxShadow: "0 20px 40px -10px hsl(220 20% 16% / 0.15)" }}
-              >
-                <div className="flex items-center gap-3">
-                  <motion.div
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-accent/10"
-                    animate={{ rotate: [0, 5, -5, 0] }}
-                    transition={{ duration: 4, repeat: Infinity }}
-                  >
-                    <Users className="h-5 w-5 text-accent" />
-                  </motion.div>
-                  <div>
-                    <p className="text-xl font-extrabold text-foreground">10,000+</p>
-                    <p className="text-xs font-medium text-muted-foreground">Protected Vehicles</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Floating stat card - right with parallax */}
-              <motion.div
-                className="absolute -right-4 top-8 rounded-2xl border border-border bg-card/95 px-5 py-3.5 shadow-lg backdrop-blur-sm sm:-right-10"
-                style={{ y: floatRightY }}
-                initial={{ opacity: 0, x: 40, scale: 0.8 }}
-                animate={{ opacity: 1, x: 0, scale: 1 }}
-                transition={{ delay: 1.2, duration: 0.6, type: "spring" }}
-                whileHover={{ scale: 1.08, boxShadow: "0 20px 40px -10px hsl(220 20% 16% / 0.15)" }}
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex gap-0.5">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <motion.span
-                        key={s}
-                        initial={{ opacity: 0, scale: 0 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 1.3 + s * 0.1, type: "spring" }}
-                      >
-                        <Star className="h-3.5 w-3.5 fill-primary text-primary" />
-                      </motion.span>
-                    ))}
-                  </div>
-                  <div>
-                    <p className="text-xl font-extrabold text-foreground">4.9/5</p>
-                    <p className="text-xs font-medium text-muted-foreground">User Rating</p>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Pulse indicator */}
-              <motion.div
-                className="absolute -bottom-2 left-1/2 -translate-x-1/2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.5, type: "spring" }}
-              >
-                <motion.div
-                  className="pulse-glow inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-xs font-bold text-accent-foreground"
-                  whileHover={{ scale: 1.1 }}
-                >
-                  <span className="relative flex h-2 w-2">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-foreground opacity-75" />
-                    <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-foreground" />
-                  </span>
-                  Live Protection Active
-                </motion.div>
-              </motion.div>
             </motion.div>
           </motion.div>
         </div>
