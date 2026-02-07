@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, ScanLine, PhoneCall, Sparkles, Star, Users } from "lucide-react";
-import heroIllustration from "@/assets/hero-illustration.png";
+import heroVideo from "@/assets/hero-scan-video.mp4";
 import { useRef } from "react";
 
 const usps = [
@@ -225,12 +225,13 @@ const HeroSection = () => {
             transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div className="relative" style={{ y: imageY }}>
-              <motion.img
-                src={heroIllustration}
-                alt="Person scanning QR tag on vehicle for emergency contact"
-                className="w-full max-w-lg rounded-3xl lg:max-w-xl"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              <video
+                src={heroVideo}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full max-w-lg rounded-3xl lg:max-w-xl shadow-2xl"
               />
 
               {/* Floating stat card - left with parallax */}
