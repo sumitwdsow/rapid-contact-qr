@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ShieldCheck, ScanLine, PhoneCall, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import stepsBg from "@/assets/steps-bg.png";
 
 const steps = [
   {
@@ -83,20 +84,38 @@ const iconTransitions = [
 const HowItWorksSection = () => {
   return (
     <section id="how-it-works" className="relative overflow-hidden py-20 md:py-28">
-      {/* Background */}
-      <div className="absolute inset-0 -z-10 bg-muted/30" />
-      <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-20" />
+      {/* Background illustration */}
+      <div className="absolute inset-0 -z-10 bg-muted/20" />
+      <motion.div
+        className="absolute inset-0 -z-10 opacity-[0.12]"
+        initial={{ opacity: 0, scale: 1.05 }}
+        whileInView={{ opacity: 0.12, scale: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
+      >
+        <img
+          src={stepsBg}
+          alt=""
+          className="h-full w-full object-cover"
+        />
+      </motion.div>
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-transparent to-background/80" />
 
       {/* Floating shapes */}
       <motion.div
-        className="absolute left-[5%] top-[30%] h-20 w-20 rounded-full bg-primary/[0.04] blur-xl"
+        className="absolute left-[5%] top-[30%] h-24 w-24 rounded-full bg-primary/[0.06] blur-2xl"
         animate={{ y: [-20, 20, -20], x: [-10, 10, -10] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div
-        className="absolute right-[8%] bottom-[20%] h-16 w-16 rounded-full bg-accent/[0.06] blur-xl"
+        className="absolute right-[8%] bottom-[20%] h-20 w-20 rounded-full bg-accent/[0.08] blur-2xl"
         animate={{ y: [15, -25, 15] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute left-1/2 top-[60%] h-32 w-32 -translate-x-1/2 rounded-full bg-primary/[0.03] blur-3xl"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.6, 0.3] }}
+        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
       <div className="container">
