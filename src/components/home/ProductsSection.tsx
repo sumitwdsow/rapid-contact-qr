@@ -60,27 +60,62 @@ const products = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 60, rotateX: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotateX: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.22, 1, 0.36, 1] as const,
+    },
+  },
+};
+
 const ProductsSection = () => {
   return (
     <section id="products" className="relative py-20 md:py-28">
       {/* Background decoration */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/[0.03] blur-3xl" />
-        <div className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-accent/[0.03] blur-3xl" />
+        <motion.div
+          className="absolute right-0 top-0 h-96 w-96 rounded-full bg-primary/[0.03] blur-3xl"
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 10, repeat: Infinity }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-0 h-96 w-96 rounded-full bg-accent/[0.03] blur-3xl"
+          animate={{ x: [0, -30, 0], y: [0, 20, 0] }}
+          transition={{ duration: 8, repeat: Infinity }}
+        />
       </div>
 
       <div className="container">
         {/* Section Header */}
         <motion.div
           className="mx-auto mb-14 max-w-2xl text-center"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <span className="mb-4 inline-block rounded-full bg-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-widest text-primary">
+          <motion.span
+            className="mb-4 inline-block rounded-full bg-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-widest text-primary"
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1, type: "spring" }}
+          >
             Choose Your Protection
-          </span>
+          </motion.span>
           <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl">
             QR Tags for <span className="text-gradient-primary">Every Need</span>
           </h2>
@@ -90,42 +125,74 @@ const ProductsSection = () => {
         </motion.div>
 
         {/* Products Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((product, index) => (
+        <motion.div
+          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
+          {products.map((product) => (
             <motion.div
               key={product.id}
               className="group relative"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.12, duration: 0.5 }}
+              variants={cardVariants}
+              style={{ perspective: "1000px" }}
             >
-              <div
-                className={`card-hover relative h-full overflow-hidden rounded-3xl border bg-card ${
+              <motion.div
+                className={`relative h-full overflow-hidden rounded-3xl border bg-card ${
                   product.popular
                     ? "border-primary/50 shadow-primary gradient-border"
                     : "border-border"
                 }`}
+                whileHover={{
+                  y: -8,
+                  rotateY: 3,
+                  boxShadow: product.popular
+                    ? "0 25px 50px -12px hsl(16 89% 57% / 0.25)"
+                    : "0 25px 50px -12px hsl(220 20% 16% / 0.12)",
+                  transition: { type: "spring", stiffness: 300, damping: 20 },
+                }}
               >
                 {/* Popular badge */}
                 {product.popular && (
-                  <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground shadow-primary">
-                    <Sparkles className="h-3.5 w-3.5" />
+                  <motion.div
+                    className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-primary px-3.5 py-1.5 text-xs font-bold text-primary-foreground shadow-primary"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.6, type: "spring" }}
+                  >
+                    <motion.span
+                      animate={{ rotate: [0, 20, -20, 0] }}
+                      transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
+                    >
+                      <Sparkles className="h-3.5 w-3.5" />
+                    </motion.span>
                     Most Popular
-                  </div>
+                  </motion.div>
                 )}
 
                 {/* Product Image */}
                 <div className="relative h-56 overflow-hidden bg-muted/20">
-                  <img
+                  <motion.img
                     src={product.image}
                     alt={product.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="h-full w-full object-cover"
+                    whileHover={{ scale: 1.12 }}
+                    transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                   />
                   {/* Discount badge */}
-                  <div className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-accent-foreground shadow-sm">
+                  <motion.div
+                    className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-accent-foreground shadow-sm"
+                    initial={{ opacity: 0, scale: 0 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5, type: "spring", stiffness: 500 }}
+                    whileHover={{ scale: 1.15, rotate: 5 }}
+                  >
                     {product.discount}
-                  </div>
+                  </motion.div>
                   {/* Gradient overlay */}
                   <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-card to-transparent" />
                 </div>
@@ -141,23 +208,39 @@ const ProductsSection = () => {
 
                   {/* Price */}
                   <div className="mb-5 flex items-baseline gap-2">
-                    <span className="text-3xl font-extrabold text-foreground">
+                    <motion.span
+                      className="text-3xl font-extrabold text-foreground"
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.4 }}
+                    >
                       {product.price}
-                    </span>
+                    </motion.span>
                     <span className="text-sm text-muted-foreground line-through">
                       {product.originalPrice}
                     </span>
                   </div>
 
-                  {/* Features */}
+                  {/* Features — staggered check marks */}
                   <ul className="mb-5 space-y-2.5">
                     {product.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-2.5 text-sm">
-                        <div className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                      <motion.li
+                        key={i}
+                        className="flex items-start gap-2.5 text-sm"
+                        initial={{ opacity: 0, x: -15 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.3 + i * 0.08 }}
+                      >
+                        <motion.div
+                          className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/10"
+                          whileHover={{ scale: 1.3, backgroundColor: "hsl(160 84% 31% / 0.2)" }}
+                        >
                           <Check className="h-3 w-3 text-accent" />
-                        </div>
+                        </motion.div>
                         <span className="text-muted-foreground">{feature}</span>
-                      </li>
+                      </motion.li>
                     ))}
                   </ul>
 
@@ -173,30 +256,36 @@ const ProductsSection = () => {
 
                   {/* CTA */}
                   <Link to={`/order?type=${product.id}`} className="block">
-                    <Button
-                      className={`w-full gap-2 rounded-xl font-bold ${
-                        product.popular ? "btn-primary" : ""
-                      }`}
-                      variant={product.popular ? "default" : "outline"}
-                      size="lg"
+                    <motion.div
+                      whileHover={{ scale: 1.03 }}
+                      whileTap={{ scale: 0.97 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
                     >
-                      Order Now
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
+                      <Button
+                        className={`w-full gap-2 rounded-xl font-bold ${
+                          product.popular ? "btn-primary" : ""
+                        }`}
+                        variant={product.popular ? "default" : "outline"}
+                        size="lg"
+                      >
+                        Order Now
+                        <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    </motion.div>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Bottom note */}
         <motion.div
           className="mt-10 text-center"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.5 }}
         >
           <p className="text-sm font-medium text-muted-foreground">
             💳 All major payment methods accepted • 🚚 Free shipping on orders above ₹499
