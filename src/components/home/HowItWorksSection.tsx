@@ -2,7 +2,9 @@ import { motion } from "framer-motion";
 import { ShieldCheck, ScanLine, PhoneCall, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import stepsBg from "@/assets/steps-bg.png";
+import stepGet from "@/assets/step-get.png";
+import stepSet from "@/assets/step-set.png";
+import stepScan from "@/assets/step-scan.png";
 
 const steps = [
   {
@@ -15,6 +17,7 @@ const steps = [
     iconColor: "text-primary",
     borderHover: "hsl(16, 89%, 57%)",
     hoverGlow: "group-hover:shadow-[0_0_40px_-5px_hsl(16,89%,57%,0.25)]",
+    image: stepGet,
   },
   {
     number: "02",
@@ -26,6 +29,7 @@ const steps = [
     iconColor: "text-accent",
     borderHover: "hsl(160, 84%, 31%)",
     hoverGlow: "group-hover:shadow-[0_0_40px_-5px_hsl(160,84%,31%,0.25)]",
+    image: stepSet,
   },
   {
     number: "03",
@@ -37,6 +41,7 @@ const steps = [
     iconColor: "text-secondary",
     borderHover: "hsl(213, 48%, 20%)",
     hoverGlow: "group-hover:shadow-[0_0_40px_-5px_hsl(213,48%,20%,0.25)]",
+    image: stepScan,
   },
 ];
 
@@ -84,22 +89,8 @@ const iconTransitions = [
 const HowItWorksSection = () => {
   return (
     <section id="how-it-works" className="relative overflow-hidden py-20 md:py-28">
-      {/* Background illustration */}
+      {/* Background */}
       <div className="absolute inset-0 -z-10 bg-muted/20" />
-      <motion.div
-        className="absolute inset-0 -z-10 opacity-[0.12]"
-        initial={{ opacity: 0, scale: 1.05 }}
-        whileInView={{ opacity: 0.12, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
-      >
-        <img
-          src={stepsBg}
-          alt=""
-          className="h-full w-full object-cover"
-        />
-      </motion.div>
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background/60 via-transparent to-background/80" />
 
       {/* Floating shapes */}
       <motion.div
@@ -164,7 +155,7 @@ const HowItWorksSection = () => {
                   style={{ perspective: "800px" }}
                 >
                   <motion.div
-                    className={`flex h-full flex-col items-center overflow-hidden rounded-3xl border border-border bg-gradient-to-b ${step.gradient} p-8 text-center backdrop-blur-sm transition-shadow duration-500 ${step.hoverGlow}`}
+                    className={`relative flex h-full flex-col items-center overflow-hidden rounded-3xl border border-border bg-gradient-to-b ${step.gradient} text-center backdrop-blur-sm transition-shadow duration-500 ${step.hoverGlow}`}
                     whileHover={{
                       rotateY: 5,
                       rotateX: -5,
@@ -173,70 +164,75 @@ const HowItWorksSection = () => {
                       transition: { type: "spring", stiffness: 300, damping: 20 },
                     }}
                   >
-                    {/* Large Number - draws in */}
+                    {/* Step illustration inside card */}
                     <motion.div
-                      className="mb-2 text-8xl font-black text-foreground/[0.06] md:text-9xl"
-                      initial={{ scale: 0.3, opacity: 0, filter: "blur(20px)" }}
-                      whileInView={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
-                      viewport={{ once: true }}
-                      transition={{
-                        delay: 0.4 + index * 0.2,
-                        duration: 0.7,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                    >
-                      {step.number}
-                    </motion.div>
-
-                    {/* Icon with specific animation */}
-                    <motion.div
-                      className={`-mt-8 mb-5 flex h-18 w-18 items-center justify-center rounded-2xl ${step.iconBg} transition-all duration-300`}
-                      initial={{ scale: 0, rotate: -90 }}
-                      whileInView={{ scale: 1, rotate: 0 }}
-                      viewport={{ once: true }}
-                      transition={{
-                        delay: 0.6 + index * 0.2,
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 15,
-                      }}
-                    >
-                      <motion.div
-                        animate={iconAnimations[index]}
-                        transition={iconTransitions[index]}
-                      >
-                        <Icon className={`h-8 w-8 ${step.iconColor}`} strokeWidth={1.5} />
-                      </motion.div>
-                    </motion.div>
-
-                    {/* Title with slide-up */}
-                    <motion.h3
-                      className="mb-2 text-2xl font-extrabold text-foreground"
+                      className="relative w-full"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: 0.7 + index * 0.2, duration: 0.5 }}
+                      transition={{ delay: 0.3 + index * 0.2, duration: 0.6 }}
                     >
-                      {step.title}
-                    </motion.h3>
+                      <motion.img
+                        src={step.image}
+                        alt={step.title}
+                        className="mx-auto h-36 w-full object-contain px-4 pt-5"
+                        whileHover={{ scale: 1.05 }}
+                        transition={{ type: "spring", stiffness: 200 }}
+                      />
+                      {/* Number watermark */}
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center text-8xl font-black text-foreground/[0.04] pointer-events-none"
+                        initial={{ scale: 0.3, opacity: 0, filter: "blur(20px)" }}
+                        whileInView={{ scale: 1, opacity: 1, filter: "blur(0px)" }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.4 + index * 0.2, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        {step.number}
+                      </motion.div>
+                    </motion.div>
 
-                    {/* Subtitle fade in */}
-                    <motion.p
-                      className="text-sm leading-relaxed text-muted-foreground"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: 0.85 + index * 0.2, duration: 0.5 }}
-                    >
-                      {step.subtitle}
-                    </motion.p>
+                    {/* Content */}
+                    <div className="flex flex-1 flex-col items-center px-6 pb-6 pt-3">
+                      <motion.div
+                        className={`mb-4 flex h-14 w-14 items-center justify-center rounded-2xl ${step.iconBg} transition-all duration-300`}
+                        initial={{ scale: 0, rotate: -90 }}
+                        whileInView={{ scale: 1, rotate: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.6 + index * 0.2, type: "spring", stiffness: 300, damping: 15 }}
+                      >
+                        <motion.div
+                          animate={iconAnimations[index]}
+                          transition={iconTransitions[index]}
+                        >
+                          <Icon className={`h-7 w-7 ${step.iconColor}`} strokeWidth={1.5} />
+                        </motion.div>
+                      </motion.div>
 
-                    {/* Bottom shine effect on hover */}
+                      <motion.h3
+                        className="mb-2 text-2xl font-extrabold text-foreground"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.7 + index * 0.2, duration: 0.5 }}
+                      >
+                        {step.title}
+                      </motion.h3>
+
+                      <motion.p
+                        className="text-sm leading-relaxed text-muted-foreground"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: 0.85 + index * 0.2, duration: 0.5 }}
+                      >
+                        {step.subtitle}
+                      </motion.p>
+                    </div>
+
+                    {/* Bottom shine */}
                     <motion.div
                       className="absolute bottom-0 left-0 right-0 h-1 rounded-b-3xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      style={{
-                        background: `linear-gradient(90deg, transparent, ${step.borderHover}, transparent)`,
-                      }}
+                      style={{ background: `linear-gradient(90deg, transparent, ${step.borderHover}, transparent)` }}
                     />
                   </motion.div>
 
