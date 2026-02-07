@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, ShieldCheck, ScanLine, PhoneCall, Sparkles, Star, Users } from "lucide-react";
-import heroVideo from "@/assets/hero-scan-video.mp4";
+import HeroAnimation from "@/components/home/HeroAnimation";
 import { useRef } from "react";
 
 const usps = [
@@ -102,7 +102,7 @@ const HeroSection = () => {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="container relative py-14 md:py-20 lg:py-28">
+      <div className="container relative py-20 md:py-28 lg:py-36">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           {/* Content — staggered children */}
           <motion.div
@@ -225,14 +225,7 @@ const HeroSection = () => {
             transition={{ delay: 0.4, duration: 1, ease: [0.22, 1, 0.36, 1] }}
           >
             <motion.div className="relative" style={{ y: imageY }}>
-              <video
-                src={heroVideo}
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full max-w-lg rounded-3xl lg:max-w-xl shadow-2xl"
-              />
+              <HeroAnimation />
 
               {/* Floating stat card - left with parallax */}
               <motion.div
