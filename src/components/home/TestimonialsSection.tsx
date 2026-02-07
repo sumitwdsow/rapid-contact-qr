@@ -45,33 +45,55 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: "10,000+", label: "Active Users" },
-  { value: "500+", label: "Lives Protected" },
-  { value: "4.9", label: "User Rating", icon: Star },
-  { value: "50+", label: "Cities Covered" },
+  { value: "10,000+", label: "Active Users", emoji: "👥" },
+  { value: "500+", label: "Lives Protected", emoji: "🛡️" },
+  { value: "4.9", label: "User Rating", emoji: "⭐" },
+  { value: "50+", label: "Cities Covered", emoji: "🏙️" },
 ];
 
 const TestimonialsSection = () => {
   return (
-    <section className="section-padding">
+    <section className="py-20 md:py-28">
       <div className="container">
+        {/* Stats Row */}
+        <motion.div
+          className="mb-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={index}
+              className="rounded-2xl border border-border bg-card p-5 text-center shadow-sm transition-shadow hover:shadow-md"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <p className="mb-1 text-2xl">{stat.emoji}</p>
+              <p className="text-2xl font-extrabold text-foreground md:text-3xl">
+                {stat.value}
+              </p>
+              <p className="text-sm text-muted-foreground">{stat.label}</p>
+            </motion.div>
+          ))}
+        </motion.div>
+
         {/* Section Header */}
         <motion.div
-          className="mx-auto mb-16 max-w-2xl text-center"
+          className="mx-auto mb-12 max-w-2xl text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
-            Customer Stories
-          </p>
-          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Trusted by Thousands
+          <span className="mb-3 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
+            Real Stories
+          </span>
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            Trusted by <span className="text-gradient-primary">Thousands</span>
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Real stories from real users who've experienced the safety of EmergencyCall.me
-          </p>
         </motion.div>
 
         {/* Testimonials Grid */}
@@ -79,41 +101,36 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              className="card-hover relative rounded-2xl border border-border bg-card p-6"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/20 hover:shadow-lg md:p-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              {/* Quote icon */}
-              <div className="absolute -top-3 right-6">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10">
-                  <Quote className="h-4 w-4 text-primary" />
-                </div>
+              {/* Quote decoration */}
+              <div className="absolute -right-2 -top-2 text-6xl font-serif text-primary/5">
+                "
               </div>
 
               {/* Rating */}
-              <div className="mb-4 flex gap-0.5">
+              <div className="mb-4 flex gap-1">
                 {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-4 w-4 fill-primary text-primary"
-                  />
+                  <Star key={i} className="h-4 w-4 fill-primary text-primary" />
                 ))}
               </div>
 
               {/* Quote */}
-              <p className="mb-6 leading-relaxed text-foreground/90">
+              <p className="mb-6 text-[15px] leading-relaxed text-foreground/85">
                 "{testimonial.quote}"
               </p>
 
               {/* Author */}
               <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-muted text-sm font-semibold text-foreground">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/70 text-sm font-bold text-primary-foreground">
                   {testimonial.avatar}
                 </div>
                 <div>
-                  <p className="font-semibold text-foreground">{testimonial.name}</p>
+                  <p className="font-bold text-foreground">{testimonial.name}</p>
                   <p className="text-sm text-muted-foreground">
                     {testimonial.vehicle} • {testimonial.location}
                   </p>
@@ -122,30 +139,6 @@ const TestimonialsSection = () => {
             </motion.div>
           ))}
         </div>
-
-        {/* Stats */}
-        <motion.div
-          className="mt-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-        >
-          {stats.map((stat, index) => (
-            <div
-              key={index}
-              className="rounded-xl border border-border bg-muted/50 p-5 text-center"
-            >
-              <div className="mb-1 flex items-center justify-center gap-1">
-                {stat.icon && <stat.icon className="h-5 w-5 fill-primary text-primary" />}
-                <p className="text-2xl font-bold text-foreground md:text-3xl">
-                  {stat.value}
-                </p>
-              </div>
-              <p className="text-sm text-muted-foreground">{stat.label}</p>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

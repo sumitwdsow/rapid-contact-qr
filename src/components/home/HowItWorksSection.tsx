@@ -1,113 +1,113 @@
 import { motion } from "framer-motion";
-import { ScanLine, PhoneCall, ShieldCheck } from "lucide-react";
+import { ShieldCheck, ScanLine, PhoneCall, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const steps = [
   {
-    number: "01",
+    number: "1",
     icon: ScanLine,
-    title: "Place Your QR Tag",
-    description:
-      "Stick the personalized QR tag on your vehicle or at your home entrance. It's weatherproof and built to last.",
+    title: "Get",
+    subtitle: "Buy a smart Vehicle QR Tag that suits you.",
+    color: "bg-primary/10 text-primary",
   },
   {
-    number: "02",
-    icon: PhoneCall,
-    title: "Someone Scans It",
-    description:
-      "In an emergency, anyone can scan the QR code with their phone camera. No app download needed.",
-  },
-  {
-    number: "03",
+    number: "2",
     icon: ShieldCheck,
-    title: "Contact Made Safely",
-    description:
-      "They can call your emergency contacts instantly without ever seeing your personal phone numbers.",
+    title: "Set",
+    subtitle: "Register your emergency contacts securely in seconds.",
+    color: "bg-accent/10 text-accent",
+  },
+  {
+    number: "3",
+    icon: PhoneCall,
+    title: "Scan",
+    subtitle: "Voilà! Anyone can scan & contact you in an emergency.",
+    color: "bg-secondary/10 text-secondary",
   },
 ];
 
 const HowItWorksSection = () => {
   return (
-    <section id="how-it-works" className="bg-muted/40 section-padding">
+    <section id="how-it-works" className="bg-muted/30 py-20 md:py-28">
       <div className="container">
         {/* Section Header */}
         <motion.div
-          className="mx-auto mb-16 max-w-2xl text-center"
+          className="mx-auto mb-6 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
-            Simple & Effective
-          </p>
-          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            How It Works
+          <span className="mb-3 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
+            It's (Really) Simple
+          </span>
+          <h2 className="mb-3 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            The QR is where the{" "}
+            <span className="text-gradient-primary">magic happens</span> :)
           </h2>
-          <p className="text-lg text-muted-foreground">
-            Get protected in 3 simple steps. Quick setup, works everywhere.
-          </p>
         </motion.div>
 
         {/* Steps */}
-        <div className="relative">
-          {/* Connection line - desktop */}
-          <div className="absolute left-0 right-0 top-20 hidden h-px bg-border lg:block" />
-          
-          <div className="grid gap-8 lg:grid-cols-3 lg:gap-12">
+        <div className="mx-auto max-w-4xl">
+          <div className="grid gap-6 md:grid-cols-3 md:gap-8">
             {steps.map((step, index) => {
               const Icon = step.icon;
-
               return (
                 <motion.div
                   key={step.number}
-                  className="relative"
+                  className="group relative"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.15, duration: 0.5 }}
                 >
-                  {/* Step card */}
-                  <div className="card-hover rounded-2xl border border-border bg-card p-8">
-                    {/* Step number */}
-                    <div className="mb-6 flex items-center justify-between">
-                      <span className="inline-flex h-8 items-center justify-center rounded-full bg-primary px-3 text-xs font-bold text-primary-foreground">
-                        Step {step.number}
-                      </span>
-                      {/* Connector dot on desktop */}
-                      <div className="hidden h-3 w-3 rounded-full bg-primary lg:block" />
+                  <div className="card-hover flex h-full flex-col items-center rounded-3xl border border-border bg-card p-8 text-center">
+                    {/* Large Number */}
+                    <div className="mb-4 text-7xl font-black text-primary/15 md:text-8xl">
+                      {step.number}
                     </div>
 
                     {/* Icon */}
-                    <div className="icon-container icon-container-lg mb-5 bg-primary/10 text-primary">
-                      <Icon className="h-7 w-7" strokeWidth={1.5} />
+                    <div className={`mb-5 flex h-16 w-16 items-center justify-center rounded-2xl ${step.color} transition-transform group-hover:scale-110`}>
+                      <Icon className="h-8 w-8" strokeWidth={1.5} />
                     </div>
 
                     {/* Content */}
-                    <h3 className="mb-3 text-xl font-semibold text-foreground">
+                    <h3 className="mb-2 text-2xl font-extrabold text-foreground">
                       {step.title}
                     </h3>
-                    <p className="leading-relaxed text-muted-foreground">
-                      {step.description}
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      {step.subtitle}
                     </p>
                   </div>
+
+                  {/* Arrow connector */}
+                  {index < steps.length - 1 && (
+                    <div className="absolute -right-4 top-1/2 z-10 hidden -translate-y-1/2 md:block">
+                      <ArrowRight className="h-6 w-6 text-primary/30" />
+                    </div>
+                  )}
                 </motion.div>
               );
             })}
           </div>
         </div>
 
-        {/* Privacy note */}
+        {/* CTA */}
         <motion.div
-          className="mt-12 flex justify-center"
+          className="mt-12 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/10 px-4 py-2 text-sm text-accent">
-            <ShieldCheck className="h-4 w-4" />
-            Your personal details are never exposed
-          </div>
+          <Link to="/order">
+            <Button size="lg" className="btn-primary h-12 gap-2 px-8 text-base font-semibold">
+              Get Your QR Tag Now
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
         </motion.div>
       </div>
     </section>

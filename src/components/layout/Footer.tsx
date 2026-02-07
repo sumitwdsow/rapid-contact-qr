@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import Logo from "./Logo";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -27,6 +28,26 @@ const Footer = () => {
 
   return (
     <footer className="border-t border-border bg-secondary text-secondary-foreground">
+      {/* Quick CTA Strip */}
+      <div className="border-b border-secondary-foreground/10 bg-secondary-foreground/5 py-6">
+        <div className="container flex flex-col items-center justify-between gap-4 sm:flex-row">
+          <div>
+            <p className="text-lg font-bold text-secondary-foreground">
+              Ready to protect your vehicle?
+            </p>
+            <p className="text-sm text-secondary-foreground/60">
+              Starting at just ₹149 — Lifetime validity
+            </p>
+          </div>
+          <Link to="/order">
+            <Button className="btn-primary gap-2 font-semibold">
+              Order Now
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </Link>
+        </div>
+      </div>
+
       <div className="container py-12 md:py-14">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           {/* Brand */}
@@ -43,7 +64,7 @@ const Footer = () => {
 
           {/* Product Links */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-secondary-foreground/50">
+            <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-secondary-foreground/50">
               Products
             </h4>
             <ul className="space-y-3">
@@ -62,7 +83,7 @@ const Footer = () => {
 
           {/* Company Links */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-secondary-foreground/50">
+            <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-secondary-foreground/50">
               Company
             </h4>
             <ul className="space-y-3">
@@ -81,7 +102,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-secondary-foreground/50">
+            <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-secondary-foreground/50">
               Contact Us
             </h4>
             <ul className="space-y-3">
