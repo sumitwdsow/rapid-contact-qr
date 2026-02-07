@@ -51,7 +51,7 @@ const faqs = [
 
 const FAQSection = () => {
   return (
-    <section id="faq" className="bg-muted/40 section-padding">
+    <section id="faq" className="bg-muted/30 py-20 md:py-28">
       <div className="container">
         {/* Section Header */}
         <motion.div
@@ -61,15 +61,14 @@ const FAQSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
+          <span className="mb-3 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
             FAQ
-          </p>
-          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            Frequently Asked Questions
+          </span>
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            Got Questions?
           </h2>
           <p className="text-lg text-muted-foreground">
-            Got questions? We've got answers. Can't find what you're looking for? 
-            Reach out to our support team.
+            Everything you need to know about EmergencyCall.me
           </p>
         </motion.div>
 
@@ -86,12 +85,12 @@ const FAQSection = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="rounded-xl border border-border bg-card px-5 data-[state=open]:shadow-sm"
+                className="overflow-hidden rounded-2xl border border-border bg-card px-6 transition-shadow data-[state=open]:shadow-md"
               >
-                <AccordionTrigger className="py-4 text-left text-[15px] font-medium hover:no-underline [&[data-state=open]>svg]:rotate-180">
+                <AccordionTrigger className="py-5 text-left text-[15px] font-semibold hover:no-underline [&[data-state=open]>svg]:rotate-180">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="pb-4 text-[15px] leading-relaxed text-muted-foreground">
+                <AccordionContent className="pb-5 text-[15px] leading-relaxed text-muted-foreground">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -111,9 +110,9 @@ const FAQSection = () => {
             Still have questions?{" "}
             <a
               href="mailto:support@emergencycall.me"
-              className="font-medium text-primary underline-offset-4 hover:underline"
+              className="font-semibold text-primary underline-offset-4 hover:underline"
             >
-              Contact our support team
+              Contact our support team →
             </a>
           </p>
         </motion.div>

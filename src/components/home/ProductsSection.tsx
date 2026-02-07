@@ -1,16 +1,20 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Bike, Car, Home, Check, ArrowRight, Sparkles } from "lucide-react";
+import { Check, ArrowRight, Sparkles, Clock, Truck } from "lucide-react";
+import productBike from "@/assets/product-bike.png";
+import productCar from "@/assets/product-car.png";
+import productHome from "@/assets/product-home.png";
 
 const products = [
   {
     id: "bike",
-    icon: Bike,
+    image: productBike,
     title: "Bike QR Tag",
-    description: "Perfect for two-wheelers. Weatherproof and compact design fits any motorcycle or scooter.",
+    description: "Perfect for two-wheelers. Weatherproof and compact.",
     price: "₹149",
     originalPrice: "₹299",
+    discount: "50% OFF",
     features: [
       "Weatherproof sticker",
       "2 emergency contacts",
@@ -18,14 +22,16 @@ const products = [
       "Instant WhatsApp delivery",
     ],
     popular: false,
+    delivery: "Digital: Instant",
   },
   {
     id: "car",
-    icon: Car,
+    image: productCar,
     title: "Car QR Tag",
-    description: "Premium tag for cars. Stick on windshield or dashboard for easy visibility.",
+    description: "Premium tag for cars. Easy visibility on windshield.",
     price: "₹199",
     originalPrice: "₹399",
+    discount: "50% OFF",
     features: [
       "Premium vinyl sticker",
       "2 emergency contacts",
@@ -33,14 +39,16 @@ const products = [
       "Dashboard + Windshield options",
     ],
     popular: true,
+    delivery: "Ships in 3-5 days",
   },
   {
     id: "home",
-    icon: Home,
+    image: productHome,
     title: "Home QR Tag",
-    description: "Secure your home entrance. Helps delivery personnel or visitors reach you quickly.",
+    description: "Secure your home entrance for visitors & delivery.",
     price: "₹249",
     originalPrice: "₹499",
+    discount: "50% OFF",
     features: [
       "Durable metal plate",
       "2 emergency contacts",
@@ -48,114 +56,128 @@ const products = [
       "Perfect for apartments",
     ],
     popular: false,
+    delivery: "Ships in 3-5 days",
   },
 ];
 
 const ProductsSection = () => {
   return (
-    <section id="products" className="section-padding">
+    <section id="products" className="py-20 md:py-28">
       <div className="container">
         {/* Section Header */}
         <motion.div
-          className="mx-auto mb-16 max-w-2xl text-center"
+          className="mx-auto mb-14 max-w-2xl text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
+          <span className="mb-3 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
             Choose Your Protection
-          </p>
-          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-            QR Tags for Every Need
+          </span>
+          <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            QR Tags for <span className="text-gradient-primary">Every Need</span>
           </h2>
           <p className="text-lg text-muted-foreground">
-            Select the perfect safety tag for your needs. All tags come with lifetime QR validity.
+            All tags come with lifetime QR validity. No subscriptions, no hidden charges.
           </p>
         </motion.div>
 
         {/* Products Grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-          {products.map((product, index) => {
-            const Icon = product.icon;
-
-            return (
-              <motion.div
-                key={product.id}
-                className="relative"
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1, duration: 0.5 }}
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {products.map((product, index) => (
+            <motion.div
+              key={product.id}
+              className="group relative"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.12, duration: 0.5 }}
+            >
+              <div
+                className={`card-hover relative h-full overflow-hidden rounded-3xl border bg-card ${
+                  product.popular
+                    ? "border-primary shadow-primary"
+                    : "border-border"
+                }`}
               >
-                <div
-                  className={`card-hover relative h-full rounded-2xl border bg-card p-6 ${
-                    product.popular 
-                      ? "border-primary/50 ring-1 ring-primary/20" 
-                      : "border-border"
-                  }`}
-                >
-                  {/* Popular badge */}
-                  {product.popular && (
-                    <div className="absolute -top-3 left-6 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-                      <Sparkles className="h-3 w-3" />
-                      Most Popular
-                    </div>
-                  )}
-
-                  <div className="mb-5">
-                    {/* Icon */}
-                    <div className="icon-container icon-container-lg mb-4 bg-muted text-foreground">
-                      <Icon className="h-6 w-6" strokeWidth={1.5} />
-                    </div>
-
-                    <h3 className="mb-2 text-xl font-semibold text-foreground">
-                      {product.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      {product.description}
-                    </p>
+                {/* Popular badge */}
+                {product.popular && (
+                  <div className="absolute left-4 top-4 z-10 inline-flex items-center gap-1.5 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
+                    <Sparkles className="h-3 w-3" />
+                    Most Popular
                   </div>
+                )}
+
+                {/* Product Image */}
+                <div className="relative h-52 overflow-hidden bg-muted/30">
+                  <img
+                    src={product.image}
+                    alt={product.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Discount badge */}
+                  <div className="absolute right-4 top-4 rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground">
+                    {product.discount}
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="mb-1 text-xl font-bold text-foreground">
+                    {product.title}
+                  </h3>
+                  <p className="mb-4 text-sm text-muted-foreground">
+                    {product.description}
+                  </p>
 
                   {/* Price */}
-                  <div className="mb-6 flex items-baseline gap-2">
-                    <span className="text-3xl font-bold text-foreground">
+                  <div className="mb-5 flex items-baseline gap-2">
+                    <span className="text-3xl font-extrabold text-foreground">
                       {product.price}
                     </span>
                     <span className="text-sm text-muted-foreground line-through">
                       {product.originalPrice}
                     </span>
-                    <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">
-                      50% off
-                    </span>
                   </div>
 
                   {/* Features */}
-                  <ul className="mb-6 space-y-3">
+                  <ul className="mb-5 space-y-2.5">
                     {product.features.map((feature, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm">
+                      <li key={i} className="flex items-start gap-2.5 text-sm">
                         <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                         <span className="text-muted-foreground">{feature}</span>
                       </li>
                     ))}
                   </ul>
 
+                  {/* Delivery info */}
+                  <div className="mb-5 flex items-center gap-2 rounded-xl bg-muted/50 px-3 py-2 text-xs text-muted-foreground">
+                    {product.delivery.includes("Instant") ? (
+                      <Clock className="h-3.5 w-3.5 text-accent" />
+                    ) : (
+                      <Truck className="h-3.5 w-3.5 text-primary" />
+                    )}
+                    {product.delivery}
+                  </div>
+
                   {/* CTA */}
                   <Link to={`/order?type=${product.id}`} className="block">
                     <Button
-                      className={`w-full gap-2 ${
+                      className={`w-full gap-2 font-semibold ${
                         product.popular ? "btn-primary" : ""
                       }`}
                       variant={product.popular ? "default" : "outline"}
+                      size="lg"
                     >
                       Order Now
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   </Link>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Bottom note */}
@@ -167,7 +189,7 @@ const ProductsSection = () => {
           transition={{ delay: 0.4 }}
         >
           <p className="text-sm text-muted-foreground">
-            All major payment methods accepted • Free shipping on orders above ₹499
+            💳 All major payment methods accepted • 🚚 Free shipping on orders above ₹499
           </p>
         </motion.div>
       </div>
