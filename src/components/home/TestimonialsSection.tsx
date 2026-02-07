@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Star, Quote } from "lucide-react";
+import { motion, useInView } from "framer-motion";
+import { Star } from "lucide-react";
+import { useRef, useEffect, useState } from "react";
 
 const testimonials = [
   {
@@ -45,40 +46,68 @@ const testimonials = [
 ];
 
 const stats = [
-  { value: "10,000+", label: "Active Users", emoji: "👥" },
-  { value: "500+", label: "Lives Protected", emoji: "🛡️" },
-  { value: "4.9", label: "User Rating", emoji: "⭐" },
-  { value: "50+", label: "Cities Covered", emoji: "🏙️" },
+  { value: 10000, suffix: "+", label: "Active Users", emoji: "👥" },
+  { value: 500, suffix: "+", label: "Lives Protected", emoji: "🛡️" },
+  { value: 4.9, suffix: "", label: "User Rating", emoji: "⭐", decimal: true },
+  { value: 50, suffix: "+", label: "Cities Covered", emoji: "🏙️" },
 ];
+
+const AnimatedCounter = ({ value, suffix, decimal }: { value: number; suffix: string; decimal?: boolean }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const duration = 2000;
+    const steps = 60;
+    const increment = value / steps;
+    let current = 0;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(decimal ? Math.round(current * 10) / 10 : Math.floor(current));
+      }
+    }, duration / steps);
+    return () => clearInterval(timer);
+  }, [isInView, value, decimal]);
+
+  return (
+    <span ref={ref}>
+      {decimal ? count.toFixed(1) : count.toLocaleString()}{suffix}
+    </span>
+  );
+};
 
 const TestimonialsSection = () => {
   return (
-    <section className="py-20 md:py-28">
+    <section className="relative py-20 md:py-28">
+      {/* Background */}
+      <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-15" />
+
       <div className="container">
         {/* Stats Row */}
-        <motion.div
-          className="mb-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
+        <div className="mb-16 grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              className="rounded-2xl border border-border bg-card p-5 text-center shadow-sm transition-shadow hover:shadow-md"
-              initial={{ opacity: 0, scale: 0.95 }}
+              className="group rounded-3xl border border-border bg-card p-6 text-center shadow-sm transition-all duration-300 hover:shadow-md"
+              initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
             >
-              <p className="mb-1 text-2xl">{stat.emoji}</p>
-              <p className="text-2xl font-extrabold text-foreground md:text-3xl">
-                {stat.value}
+              <p className="mb-2 text-3xl transition-transform duration-300 group-hover:scale-110">{stat.emoji}</p>
+              <p className="text-3xl font-extrabold text-foreground md:text-4xl">
+                <AnimatedCounter value={stat.value} suffix={stat.suffix} decimal={stat.decimal} />
               </p>
-              <p className="text-sm text-muted-foreground">{stat.label}</p>
+              <p className="mt-1 text-sm font-medium text-muted-foreground">{stat.label}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
         {/* Section Header */}
         <motion.div
@@ -88,7 +117,7 @@ const TestimonialsSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
-          <span className="mb-3 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
+          <span className="mb-4 inline-block rounded-full bg-primary/10 px-5 py-2 text-xs font-bold uppercase tracking-widest text-primary">
             Real Stories
           </span>
           <h2 className="mb-4 text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl md:text-5xl">
@@ -101,14 +130,14 @@ const TestimonialsSection = () => {
           {testimonials.map((testimonial, index) => (
             <motion.div
               key={testimonial.id}
-              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-6 transition-all duration-300 hover:border-primary/20 hover:shadow-lg md:p-8"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-7 transition-all duration-400 hover:border-primary/20 hover:shadow-lg md:p-8"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1, duration: 0.5 }}
             >
               {/* Quote decoration */}
-              <div className="absolute -right-2 -top-2 text-6xl font-serif text-primary/5">
+              <div className="absolute -right-3 -top-3 text-7xl font-serif leading-none text-primary/[0.06]">
                 "
               </div>
 
@@ -120,13 +149,13 @@ const TestimonialsSection = () => {
               </div>
 
               {/* Quote */}
-              <p className="mb-6 text-[15px] leading-relaxed text-foreground/85">
+              <p className="mb-6 text-[15px] leading-relaxed text-foreground/80">
                 "{testimonial.quote}"
               </p>
 
               {/* Author */}
               <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/70 text-sm font-bold text-primary-foreground">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-primary/60 text-sm font-bold text-primary-foreground shadow-sm">
                   {testimonial.avatar}
                 </div>
                 <div>

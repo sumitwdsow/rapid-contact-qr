@@ -70,7 +70,7 @@ export default {
         "2xl": "calc(var(--radius) + 8px)",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ['"Plus Jakarta Sans"', "system-ui", "sans-serif"],
       },
       fontSize: {
         "display-lg": ["3.5rem", { lineHeight: "1.1", fontWeight: "700" }],
