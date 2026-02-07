@@ -1,61 +1,21 @@
 import { motion } from "framer-motion";
-import heroScene from "@/assets/hero-scene.png";
+import heroVideo from "@/assets/hero-scene-video.mp4";
 
 const HeroAnimation = () => {
   return (
     <div className="relative w-full max-w-xl lg:max-w-2xl mx-auto">
-      {/* Base illustration */}
-      <motion.img
-        src={heroScene}
-        alt="Person scanning QR tag on vehicle to contact owner securely"
+      {/* Animated scene video */}
+      <motion.video
+        src={heroVideo}
+        autoPlay
+        loop
+        muted
+        playsInline
         className="w-full rounded-3xl shadow-2xl"
         initial={{ opacity: 0, scale: 0.92 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       />
-
-      {/* Scan pulse rings on the QR code area */}
-      <motion.div
-        className="absolute rounded-md border-2 border-primary/50"
-        style={{ width: "8%", height: "14%", top: "28%", right: "30%" }}
-        animate={{
-          scale: [1, 1.6, 2],
-          opacity: [0.6, 0.2, 0],
-        }}
-        transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-      />
-      <motion.div
-        className="absolute rounded-md border-2 border-primary/30"
-        style={{ width: "8%", height: "14%", top: "28%", right: "30%" }}
-        animate={{
-          scale: [1, 1.3, 1.7],
-          opacity: [0.4, 0.15, 0],
-        }}
-        transition={{ duration: 2, repeat: Infinity, delay: 1.4 }}
-      />
-
-      {/* Scan beam from phone to QR */}
-      <motion.div
-        className="absolute h-[2px]"
-        style={{
-          left: "28%",
-          top: "42%",
-          width: "18%",
-          background: "linear-gradient(90deg, hsl(var(--primary) / 0.7), hsl(var(--accent) / 0.5))",
-          transformOrigin: "left",
-        }}
-        initial={{ scaleX: 0, opacity: 0 }}
-        animate={{ scaleX: 1, opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.6 }}
-      >
-        {/* Traveling dot */}
-        <motion.div
-          className="absolute top-1/2 h-2.5 w-2.5 -translate-y-1/2 rounded-full"
-          style={{ background: "hsl(var(--primary))", boxShadow: "0 0 10px hsl(var(--primary) / 0.6)" }}
-          animate={{ left: ["0%", "100%", "0%"] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-        />
-      </motion.div>
 
       {/* Calling notification popup */}
       <motion.div
@@ -102,20 +62,6 @@ const HeroAnimation = () => {
           </svg>
         </motion.div>
         <span className="text-[10px] font-bold text-accent">No Personal Info Shared</span>
-      </motion.div>
-
-      {/* Pulse dot - live indicator */}
-      <motion.div
-        className="absolute bottom-4 right-4 flex items-center gap-1.5 rounded-full bg-card/90 px-3 py-1.5 shadow-md backdrop-blur-sm border border-border"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 3.5, type: "spring" }}
-      >
-        <span className="relative flex h-2 w-2">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-          <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
-        </span>
-        <span className="text-[10px] font-bold text-foreground/70">Live Protection</span>
       </motion.div>
     </div>
   );
