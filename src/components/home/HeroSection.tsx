@@ -100,8 +100,8 @@ const HeroSection = () => {
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      <div className="container relative py-20 md:py-28 lg:py-36">
-        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
+      <div className="container relative px-5 py-12 sm:px-6 md:py-28 lg:py-36">
+        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-20">
           {/* Content — staggered children */}
           <motion.div
             className="flex flex-col items-center text-center lg:items-start lg:text-left"
@@ -111,7 +111,7 @@ const HeroSection = () => {
           >
             {/* Trust badge */}
             <motion.div
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-2 text-sm font-semibold text-primary"
+              className="mb-4 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary sm:px-4 sm:py-2 sm:text-sm"
               variants={itemVariants}
             >
               <motion.span
@@ -125,7 +125,7 @@ const HeroSection = () => {
 
             {/* Headline */}
             <motion.h1
-              className="mb-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-foreground sm:text-5xl lg:text-[3.75rem]"
+              className="mb-4 text-3xl font-extrabold leading-[1.1] tracking-tight text-foreground sm:mb-6 sm:text-5xl lg:text-[3.75rem]"
               variants={itemVariants}
             >
               Say Goodbye to{" "}
@@ -141,7 +141,7 @@ const HeroSection = () => {
 
             {/* Description */}
             <motion.p
-              className="mb-8 max-w-xl text-lg leading-relaxed text-muted-foreground md:text-xl"
+              className="mb-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:mb-8 sm:text-lg md:text-xl"
               variants={itemVariants}
             >
               Our QR Safety Tags enable secure communication between you and anyone
@@ -150,7 +150,7 @@ const HeroSection = () => {
             </motion.p>
 
             {/* CTAs */}
-            <motion.div className="mb-10 flex flex-col gap-3 sm:flex-row" variants={itemVariants}>
+            <motion.div className="mb-8 flex w-full flex-col gap-3 sm:mb-10 sm:w-auto sm:flex-row" variants={itemVariants}>
               <Link to="/order">
                 <motion.div
                   whileHover={{ scale: 1.05, y: -2 }}
@@ -159,7 +159,7 @@ const HeroSection = () => {
                 >
                   <Button
                     size="lg"
-                    className="btn-primary h-14 gap-2.5 rounded-2xl px-8 text-base font-bold"
+                    className="btn-primary h-12 w-full gap-2.5 rounded-2xl px-6 text-sm font-bold sm:h-14 sm:w-auto sm:px-8 sm:text-base"
                   >
                     Order Now — Starting ₹149
                     <motion.span
@@ -179,7 +179,7 @@ const HeroSection = () => {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="h-14 rounded-2xl border-2 px-8 text-base font-bold"
+                    className="h-12 w-full rounded-2xl border-2 px-6 text-sm font-bold sm:h-14 sm:w-auto sm:px-8 sm:text-base"
                   >
                     Watch How It Works
                   </Button>
@@ -188,11 +188,11 @@ const HeroSection = () => {
             </motion.div>
 
             {/* USP Badges — staggered */}
-            <motion.div className="grid w-full grid-cols-3 gap-3" variants={itemVariants}>
+            <motion.div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3" variants={itemVariants}>
               {usps.map((usp, i) => (
                 <motion.div
                   key={i}
-                  className="flex flex-col items-center gap-2.5 rounded-2xl border border-border bg-card/80 p-4 shadow-sm backdrop-blur-sm sm:flex-row sm:text-left"
+                  className="flex items-center gap-3 rounded-2xl border border-border bg-card/80 p-3 shadow-sm backdrop-blur-sm sm:flex-col sm:items-center sm:gap-2.5 sm:p-4 sm:text-center"
                   whileHover={{
                     scale: 1.05,
                     boxShadow: "0 10px 30px -10px hsl(16 89% 57% / 0.15)",
@@ -201,14 +201,14 @@ const HeroSection = () => {
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
                   <motion.div
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-primary/10 sm:h-11 sm:w-11"
                     whileHover={{ rotate: 10 }}
                   >
-                    <usp.icon className="h-5 w-5 text-primary" strokeWidth={1.5} />
+                    <usp.icon className="h-4 w-4 text-primary sm:h-5 sm:w-5" strokeWidth={1.5} />
                   </motion.div>
                   <div>
                     <p className="text-xs font-bold text-foreground sm:text-sm">{usp.label}</p>
-                    <p className="hidden text-xs text-muted-foreground sm:block">{usp.sub}</p>
+                    <p className="text-[10px] text-muted-foreground sm:text-xs">{usp.sub}</p>
                   </div>
                 </motion.div>
               ))}
