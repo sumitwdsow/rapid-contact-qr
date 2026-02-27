@@ -16,7 +16,7 @@ interface PhoneVerificationProps {
 const PhoneVerification = ({ onNext, onBack, phone, onPhoneChange }: PhoneVerificationProps) => {
   const [otpSent, setOtpSent] = useState(false);
   const [otpMethod, setOtpMethod] = useState<"whatsapp" | "sms" | null>(null);
-  const [otp, setOtp] = useState(["", "", "", ""]);
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [showSmsOption, setShowSmsOption] = useState(false);
   const [timer, setTimer] = useState(0);
   const [isVerifying, setIsVerifying] = useState(false);
@@ -47,7 +47,7 @@ const PhoneVerification = ({ onNext, onBack, phone, onPhoneChange }: PhoneVerifi
     setOtpMethod(method);
     setOtpSent(true);
     setTimer(30);
-    setOtp(["", "", "", ""]);
+    setOtp(["", "", "", "", "", ""]);
     setIsVerified(false);
     if (method === "sms") setShowSmsOption(true);
     setTimeout(() => inputRefs.current[0]?.focus(), 100);
@@ -60,12 +60,12 @@ const PhoneVerification = ({ onNext, onBack, phone, onPhoneChange }: PhoneVerifi
     setOtp(newOtp);
     setError("");
 
-    if (value && index < 3) {
+    if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
 
-    // Auto-verify when all 4 digits entered
-    if (value && index === 3 && newOtp.every((d) => d !== "")) {
+    // Auto-verify when all 6 digits entered
+    if (value && index === 5 && newOtp.every((d) => d !== "")) {
       verifyOtp(newOtp.join(""));
     }
   };
@@ -81,7 +81,7 @@ const PhoneVerification = ({ onNext, onBack, phone, onPhoneChange }: PhoneVerifi
     setError("");
     // Mock verification
     await new Promise((r) => setTimeout(r, 1500));
-    if (code === "1234" || code.length === 4) {
+    if (code === "123456" || code.length === 6) {
       setIsVerified(true);
       setIsVerifying(false);
       setTimeout(onNext, 800);
@@ -133,7 +133,7 @@ const PhoneVerification = ({ onNext, onBack, phone, onPhoneChange }: PhoneVerifi
                   setOtpSent(false);
                   setShowSmsOption(false);
                   setIsVerified(false);
-                  setOtp(["", "", "", ""]);
+                  setOtp(["", "", "", "", "", ""]);
                 }}
                 className={error && !otpSent ? "border-destructive" : ""}
                 disabled={isVerified}
@@ -182,7 +182,7 @@ const PhoneVerification = ({ onNext, onBack, phone, onPhoneChange }: PhoneVerifi
 
                 {/* OTP Boxes */}
                 <div className="space-y-2">
-                  <Label>Enter 4-digit OTP</Label>
+                  <Label>Enter 6-digit OTP</Label>
                   <div className="flex justify-center gap-3">
                     {otp.map((digit, i) => (
                       <Input
