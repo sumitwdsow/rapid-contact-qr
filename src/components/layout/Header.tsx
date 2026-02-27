@@ -47,9 +47,19 @@ const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden items-center gap-3 md:flex">
-            <Link to="/dashboard">
+            <Link to="/activate">
+              <Button variant="ghost" size="sm" className="font-medium text-muted-foreground hover:text-foreground">
+                Activate QR
+              </Button>
+            </Link>
+            <Link to="/track-order">
               <Button variant="ghost" size="sm" className="font-medium text-muted-foreground hover:text-foreground">
                 Track Order
+              </Button>
+            </Link>
+            <Link to="/modify-qr">
+              <Button variant="ghost" size="sm" className="font-medium text-muted-foreground hover:text-foreground">
+                Modify QR
               </Button>
             </Link>
             <Link to="/order">
@@ -95,9 +105,19 @@ const Header = () => {
                   </a>
                 ))}
                 <div className="mt-4 flex flex-col gap-2 border-t border-border pt-4">
-                  <Link to="/dashboard" onClick={() => setIsMenuOpen(false)}>
+                  <Link to="/activate" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="outline" className="w-full rounded-xl">
+                      Activate QR
+                    </Button>
+                  </Link>
+                  <Link to="/track-order" onClick={() => setIsMenuOpen(false)}>
                     <Button variant="outline" className="w-full rounded-xl">
                       Track Order
+                    </Button>
+                  </Link>
+                  <Link to="/modify-qr" onClick={() => setIsMenuOpen(false)}>
+                    <Button variant="outline" className="w-full rounded-xl">
+                      Modify QR
                     </Button>
                   </Link>
                   <Link to="/order" onClick={() => setIsMenuOpen(false)}>
