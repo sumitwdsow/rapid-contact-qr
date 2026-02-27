@@ -21,7 +21,7 @@ const testimonials = [
     avatar: "PP",
     rating: 5,
     quote:
-      "Had a minor accident and I was unconscious. The QR tag helped bystanders contact my husband immediately. Can't thank EmergencyCall enough!",
+      "Had a minor accident and I was unconscious. The QR tag helped bystanders contact my husband immediately. Can't thank callowner.me enough!",
   },
   {
     id: 3,

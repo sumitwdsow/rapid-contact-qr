@@ -166,7 +166,7 @@ const Emergency = () => {
             <p className="text-sm text-muted-foreground">
               Powered by{" "}
               <Link to="/" className="font-medium text-primary hover:underline">
-                EmergencyCall.me
+                callowner.me
               </Link>
             </p>
           </div>

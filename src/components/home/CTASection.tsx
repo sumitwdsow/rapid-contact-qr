@@ -110,7 +110,7 @@ const CTASection = () => {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              Join 10,000+ Indians who trust EmergencyCall.me for their vehicle and
+              Join 10,000+ Indians who trust callowner.me for their vehicle and
               home safety. Starting at just ₹149.
             </motion.p>
 

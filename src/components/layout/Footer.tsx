@@ -125,7 +125,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li className="flex items-center gap-2.5 text-sm text-secondary-foreground/70">
                 <Mail className="h-4 w-4 shrink-0 text-primary" />
-                <span className="break-all">support@emergencycall.me</span>
+                <span className="break-all">support@callowner.me</span>
               </li>
               <li className="flex items-center gap-2.5 text-sm text-secondary-foreground/70">
                 <Phone className="h-4 w-4 shrink-0 text-primary" />
@@ -142,7 +142,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-secondary-foreground/10 pt-8 sm:flex-row">
           <p className="text-xs text-secondary-foreground/50 sm:text-sm">
-            © {currentYear} EmergencyCall.me. All rights reserved.
+            © {currentYear} callowner.me. All rights reserved.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
             {footerLinks.legal.map((link) => (
