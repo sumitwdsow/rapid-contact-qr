@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import OrderProgress from "@/components/order/OrderProgress";
 import SelectQRType from "@/components/order/SelectQRType";
+import PhoneVerification from "@/components/order/PhoneVerification";
 import DetailsForm from "@/components/order/DetailsForm";
 import DeliveryOptions from "@/components/order/DeliveryOptions";
 import Checkout from "@/components/order/Checkout";
@@ -20,19 +21,15 @@ export interface EmergencyContact {
 
 export interface OrderData {
   qrType: QRType | null;
-  // Vehicle/Home details
+  phoneNumber: string;
   vehicleNumber?: string;
   ownerName: string;
   address: string;
-  // Emergency contacts
   contact1: EmergencyContact;
   contact2: EmergencyContact;
-  // Delivery
   deliveryType: DeliveryType;
-  // Digital delivery
   whatsappNumber?: string;
   email?: string;
-  // Physical delivery
   deliveryAddress?: string;
   pincode?: string;
   city?: string;
@@ -41,6 +38,7 @@ export interface OrderData {
 
 const initialOrderData: OrderData = {
   qrType: null,
+  phoneNumber: "",
   ownerName: "",
   address: "",
   contact1: { name: "", phone: "" },
@@ -67,17 +65,18 @@ const Order = () => {
 
   const steps = [
     { number: 1, title: "Select Type" },
-    { number: 2, title: "Enter Details" },
-    { number: 3, title: "Delivery" },
-    { number: 4, title: "Payment" },
-    { number: 5, title: "Done" },
+    { number: 2, title: "Verify Phone" },
+    { number: 3, title: "Enter Details" },
+    { number: 4, title: "Delivery" },
+    { number: 5, title: "Payment" },
+    { number: 6, title: "Done" },
   ];
 
   const updateOrderData = (data: Partial<OrderData>) => {
     setOrderData((prev) => ({ ...prev, ...data }));
   };
 
-  const nextStep = () => setStep((prev) => Math.min(prev + 1, 5));
+  const nextStep = () => setStep((prev) => Math.min(prev + 1, 6));
   const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
 
   const handlePaymentSuccess = (id: string) => {
@@ -90,8 +89,7 @@ const Order = () => {
       <Header />
       <main className="flex-1 py-6 md:py-10">
         <div className="container max-w-3xl">
-          {/* Progress Indicator */}
-          {step < 5 && (
+          {step < 6 && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -101,18 +99,10 @@ const Order = () => {
             </motion.div>
           )}
 
-          {/* Step Content */}
           <div className="mt-8">
             <AnimatePresence mode="wait">
               {step === 1 && (
-                <motion.div
-                  key="step-1"
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
+                <motion.div key="step-1" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3, ease: "easeInOut" }}>
                   <SelectQRType
                     selectedType={orderData.qrType}
                     onSelect={(type) => {
@@ -124,17 +114,10 @@ const Order = () => {
               )}
 
               {step === 2 && (
-                <motion.div
-                  key="step-2"
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <DetailsForm
-                    orderData={orderData}
-                    onUpdate={updateOrderData}
+                <motion.div key="step-2" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3, ease: "easeInOut" }}>
+                  <PhoneVerification
+                    phone={orderData.phoneNumber}
+                    onPhoneChange={(p) => updateOrderData({ phoneNumber: p })}
                     onNext={nextStep}
                     onBack={prevStep}
                   />
@@ -142,49 +125,25 @@ const Order = () => {
               )}
 
               {step === 3 && (
-                <motion.div
-                  key="step-3"
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <DeliveryOptions
-                    orderData={orderData}
-                    onUpdate={updateOrderData}
-                    onNext={nextStep}
-                    onBack={prevStep}
-                  />
+                <motion.div key="step-3" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3, ease: "easeInOut" }}>
+                  <DetailsForm orderData={orderData} onUpdate={updateOrderData} onNext={nextStep} onBack={prevStep} />
                 </motion.div>
               )}
 
               {step === 4 && (
-                <motion.div
-                  key="step-4"
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
-                  <Checkout
-                    orderData={orderData}
-                    onSuccess={handlePaymentSuccess}
-                    onBack={prevStep}
-                  />
+                <motion.div key="step-4" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3, ease: "easeInOut" }}>
+                  <DeliveryOptions orderData={orderData} onUpdate={updateOrderData} onNext={nextStep} onBack={prevStep} />
                 </motion.div>
               )}
 
-              {step === 5 && orderId && (
-                <motion.div
-                  key="step-5"
-                  variants={pageVariants}
-                  initial="initial"
-                  animate="animate"
-                  exit="exit"
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
-                >
+              {step === 5 && (
+                <motion.div key="step-5" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3, ease: "easeInOut" }}>
+                  <Checkout orderData={orderData} onSuccess={handlePaymentSuccess} onBack={prevStep} />
+                </motion.div>
+              )}
+
+              {step === 6 && orderId && (
+                <motion.div key="step-6" variants={pageVariants} initial="initial" animate="animate" exit="exit" transition={{ duration: 0.3, ease: "easeInOut" }}>
                   <Confirmation orderId={orderId} orderData={orderData} />
                 </motion.div>
               )}
