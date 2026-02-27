@@ -72,7 +72,7 @@ const HeroAnimation = () => {
                 {/* Brand logo */}
                 <motion.img
                   src={logo}
-                  alt="EmergencyCall.me"
+                  alt="callowner.me"
                   className="h-8 w-8 object-contain"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
@@ -85,7 +85,7 @@ const HeroAnimation = () => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.3 }}
                 >
-                  EmergencyCall.me
+                  callowner.me
                 </motion.p>
 
                 {/* Scan success */}

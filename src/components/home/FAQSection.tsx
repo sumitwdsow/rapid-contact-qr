@@ -101,7 +101,7 @@ const FAQSection = () => {
             Got Questions?
           </h2>
           <p className="text-lg text-muted-foreground">
-            Everything you need to know about EmergencyCall.me
+            Everything you need to know about callowner.me
           </p>
         </motion.div>
 
@@ -143,7 +143,7 @@ const FAQSection = () => {
           <p className="text-muted-foreground">
             Still have questions?{" "}
             <motion.a
-              href="mailto:support@emergencycall.me"
+              href="mailto:support@callowner.me"
               className="font-semibold text-primary underline-offset-4 hover:underline"
               whileHover={{ scale: 1.05 }}
             >

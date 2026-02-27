@@ -57,13 +57,13 @@ const Logo = ({ className = "", inverted = false }: LogoProps) => {
           className="text-lg font-bold tracking-tight sm:text-xl"
           style={{ color: textColor }}
         >
-          Emergency
+          call
         </span>
         <span 
           className="text-lg font-bold tracking-tight sm:text-xl"
           style={{ color: primaryColor }}
         >
-          Call
+          owner
         </span>
         <span 
           className="text-lg font-medium sm:text-xl"
